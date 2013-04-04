@@ -1,7 +1,5 @@
 /*jslint indent:4*/
 
-// We need to 'require' the                                                                                                                            
-// following modules                                                                                                                    
 var express = require("express"),
     http = require("http"),
     path = require("path"),
@@ -9,18 +7,17 @@ var express = require("express"),
     app = express(),
     twitterWorker = require("./twitter.js");
 
-// This is our basic configuration                                                                                                                     
 app.configure(function () {
-    // Define our static file directory, it will be 'public'                                                                                           
     app.use(express.static(path.join(__dirname, 'public')));
 });
 
-//Start twitter worker
-twitterWorker();
+var happyWords = ["awesome", "great", "good", "sunshine", "unicorns"];
+var sadWords = ["lame", "horrible", "sad", "troll", "depressed"];
 
-// Create the http server and get it to                                                                                                                
-// listen on the specified port 3000                                                                                                                   
-http.createServer(app).listen(3000, function(){
+twitterWorker(happyWords);
+twitterWorker(sadWords);
+
+http.createServer(app).listen(3000, function () {
     console.log("Express server listening on port 3000");
 });
 
@@ -29,15 +26,37 @@ app.get("/", function (req, res) {
     res.send("Hello World!");
 });
 
-app.get("/counts.json", function (req, res) {
-    redisClient.get("awesome", function (error, awesomeCount) {
+app.get("/happyCounts.json", function (req, res) {
+    var jsonObject = [], i;
+    redisClient.mget(happyWords, function (error, results) {
         if (error !== null) {
-            // handle error here                                                                                                                       
+            // handle error here
             console.log("ERROR: " + error);
         } else {
-            var jsonObject = {
-        "awesome":awesomeCount
-            };
+            for (i = 0; i < results.length; i++) {
+                var key = happyWords[i];
+                jsonObject.push({
+                    key: results[i]
+                });
+            }
+            res.json(jsonObject);
+        }
+    });
+});
+
+app.get("/sadCounts.json", function (req, res) {
+    var jsonObject = [], i;
+    redisClient.mget(sadWords, function (error, results) {
+        if (error !== null) {
+            // handle error here
+            console.log("ERROR: " + error);
+        } else {
+            for (i = 0; i < results.length; i++) {
+                var key = sadWords[i];
+                jsonObject.push({
+                    key: results[i]
+                });
+            }
             // use res.json to return JSON objects instead of strings
             res.json(jsonObject);
         }
