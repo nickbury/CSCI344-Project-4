@@ -1,0 +1,14 @@
+@charset 'UTF-8';
+
+.happy {
+  float:left;
+  /*width: 50%;*/
+  background-color: #FFD800;
+}
+
+.sad {
+  float:right;
+  /*width: 50%;*/
+  background-color: #587498;
+  text-align: right;
+}
