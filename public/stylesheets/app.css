@@ -1,9 +1,35 @@
 @charset 'UTF-8';
 
+body {
+  background-color: #587058;
+}
+
+h1 {
+  text-align: center;
+  color: white;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.desc {
+  text-align: center;
+  color: white;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 12px;
+}
+
 .happy {
   float:left;
   /*width: 50%;*/
   background-color: #FFD800;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.happy h2 {
+  padding-left: 5px;
+}
+
+.happy p {
+  padding-left: 8px;
 }
 
 .sad {
@@ -11,4 +37,13 @@
   /*width: 50%;*/
   background-color: #587498;
   text-align: right;
+  font-family: 'Noto Sans', sans-serif;
+}
+
+.sad h2 {
+  padding-right: 5px;
+}
+
+.sad p {
+  padding-right: 8px;
 }
