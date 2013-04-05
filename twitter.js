@@ -1,4 +1,4 @@
-/*jslint indent:4*/
+/*jslint indent:4 plusplus:true*/
 
 var worker = function (trackedWords) {
     var Twitter = require("ntwitter"),

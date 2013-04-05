@@ -1,4 +1,4 @@
-/*jslint indent:4*/
+/*jslint indent:4 plusplus:true*/
 
 var express = require("express"),
     http = require("http"),
@@ -10,9 +10,10 @@ var express = require("express"),
 app.configure(function () {
     app.use(express.static(path.join(__dirname, 'public')));
 });
+
 var allWords = [];
 var happyWords = ["awesome", "great", "good", "sunshine", "unicorns"];
-var sadWords = ["lame", "horrible", "sad", "troll", "depressed"];
+var sadWords = ["lame", "horrible", "sad", "troll", "depressed", "GOP"];
 
 happyWords.forEach(function (word) {
     allWords.push(word);
@@ -28,8 +29,7 @@ http.createServer(app).listen(3000, function () {
 });
 
 app.get("/", function (req, res) {
-    //send "Hello World" to the client as html
-    res.send("Hello World!");
+
 });
 
 app.get("/happyCounts.json", function (req, res) {
